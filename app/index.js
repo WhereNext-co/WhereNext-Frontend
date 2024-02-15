@@ -1,11 +1,10 @@
 import { View, Text } from "react-native"
+import { Link } from "expo-router"
 
-const Home = () => {
+export default function Home() {
   return (
     <View>
-      <Text>Pung Kung</Text>
+      <Link href="/login">Start</Link>
     </View>
   )
 }
-
-export default Home
