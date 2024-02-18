@@ -23,7 +23,7 @@ export default function Login() {
             <Button title="Login" />
         </Link>
 
-        <Link href='/'>
+        <Link href='/sign_up'>
             <Button title="Sign Up" />
         </Link>
 

@@ -3,8 +3,6 @@ import { Link } from "expo-router";
 
 export default function Home() {
     return(
-        <View>
-            <Link href="/login">Start</Link>
-        </View>
+        <Link href="/sign_up">Start</Link>
     )
 }
