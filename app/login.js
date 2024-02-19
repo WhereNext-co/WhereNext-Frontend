@@ -11,32 +11,41 @@ import {
   HStack,
   Button,
   Link,
+  WarningOutlineIcon,
 } from "native-base";
+
 
 export default function Login() {
   const [phoneNum, setPhoneNum] = useState("");
+  const [errorMessage, seterrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
-  const onSetPhoneNum = (text) => setPhoneNum(text);
+
+  const setPhoneNumHandler = (text) => {
+    setPhoneNum(text);
+    if (text.length == 0) {
+      seterrorMessage("Please input something");
+      setIsError(true);
+    } else if (isNaN(text)) {
+      seterrorMessage("Enter only number");
+      setIsError(true);
+    }
+  }
 
   return (
     <NativeBaseProvider>
       <Center flex={1}>
-        <Heading
-          size="3xl"
-          fontWeight="600"
-          color="coolGray.800"
-          _dark={{
-            color: "warmGray.50",
-          }}
-        >
-          WhereNext
-        </Heading>
-        <Box safeArea p="2" py="8" w="90%" maxW="290">
-
+        <Heading>Login</Heading>
+        <Box>
           <VStack space={4} mt="5">
-            <FormControl>
+            <FormControl isInvalid={isError}>
               <FormControl.Label>Phone Number</FormControl.Label>
-              <Input value={phoneNum} onChangeText={onSetPhoneNum} />
+              <Input value={phoneNum} onChangeText={setPhoneNumHandler}/>
+              <FormControl.ErrorMessage
+                leftIcon={<WarningOutlineIcon size="xs" />}
+              >
+                {errorMessage}
+              </FormControl.ErrorMessage>
             </FormControl>
             <Button mt="10px" colorScheme="indigo">
               Sign in

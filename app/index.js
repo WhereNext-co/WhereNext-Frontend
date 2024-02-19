@@ -15,7 +15,7 @@ export default function Home() {
       >
         <Link href="/login">
           <Box bg="#fff" width="100px" height="50px" borderRadius={5}>
-            <Text margin='auto'>Login</Text>
+            <Text margin="auto">Login</Text>
           </Box>
         </Link>
       </Box>
