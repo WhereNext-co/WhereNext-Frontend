@@ -1,32 +1,80 @@
-import { View, Text, TextInput, Button} from "react-native";
-import { Link } from "expo-router";
+import { useState } from "react";
+import {
+  NativeBaseProvider,
+  FormControl,
+  Box,
+  Center,
+  Input,
+  Heading,
+  Text,
+  VStack,
+  HStack,
+  Button,
+  Link,
+  WarningOutlineIcon,
+} from "native-base";
 
 
 export default function Login() {
-    return(
-    <View>
-        <Text>Login Page</Text>
-        <TextInput 
-        placeholder="Username"
-        style={{backgroundColor: '#FF0000',
-                padding: 20,
-                margin: 20,}}
-        />
-        <TextInput
-        placeholder="Password"
-        style={{backgroundColor: '#FF0000',
-                padding: 20,
-                margin: 20,}}
-        />
+  const [phoneNum, setPhoneNum] = useState("");
+  const [errorMessage, seterrorMessage] = useState("");
+  const [isError, setIsError] = useState(false);
 
-        <Link href='/'>
-            <Button title="Login" />
-        </Link>
 
-        <Link href='/'>
-            <Button title="Sign Up" />
-        </Link>
+  const setPhoneNumHandler = (text) => {
+    setPhoneNum(text);
+    if (text.length == 0) {
+      seterrorMessage("Please input something");
+      setIsError(true);
+    } else if (isNaN(text)) {
+      seterrorMessage("Enter only number");
+      setIsError(true);
+    }
+  }
 
-    </View>
-    ); 
+  return (
+    <NativeBaseProvider>
+      <Center flex={1}>
+        <Heading>Login</Heading>
+        <Box>
+          <VStack space={4} mt="5">
+            <FormControl isInvalid={isError}>
+              <FormControl.Label>Phone Number</FormControl.Label>
+              <Input value={phoneNum} onChangeText={setPhoneNumHandler}/>
+              <FormControl.ErrorMessage
+                leftIcon={<WarningOutlineIcon size="xs" />}
+              >
+                {errorMessage}
+              </FormControl.ErrorMessage>
+            </FormControl>
+            <Button mt="10px" colorScheme="indigo">
+              Sign in
+            </Button>
+            <HStack mt="6" justifyContent="center">
+              <Text
+                fontSize="sm"
+                color="coolGray.600"
+                _dark={{
+                  color: "warmGray.200",
+                }}
+              >
+                I'm a new user.{" "}
+              </Text>
+              <Link
+                _text={{
+                  color: "indigo.500",
+                  fontWeight: "medium",
+                  fontSize: "sm",
+                }}
+                href="#"
+              >
+                Sign Up
+              </Link>
+            </HStack>
+            <Text>{phoneNum}</Text>
+          </VStack>
+        </Box>
+      </Center>
+    </NativeBaseProvider>
+  );
 }
